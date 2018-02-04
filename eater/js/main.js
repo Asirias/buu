@@ -84,7 +84,7 @@ function Init()
 			Texboxsprite.y = canvas.height - Texboxsprite.height;
 			stage.addChild(Texboxsprite);
 			
-			maintext = new PIXI.Text("",{fontFamily:'Arial', fontSize:'16pt',fontWeight:'bold', fill:'#FF0000'});
+			maintext = new PIXI.Text("",{fontFamily:'Arial', fontSize:'16pt',fontWeight:'bold', fill:'#000000'});
 			fontsize = 16;
 			maintext.style.fontSize = fontsize;
 			maintext.style.align = 'center';
@@ -171,14 +171,17 @@ function audioplaying()
 			case "[sound2]":
 			if (audio[1].paused)audio[1].play();
 			color = 0x00FF00;
+			blackfade.alpha = 1;
 			break;
 			case "[sound3]":
 			if (audio[2].paused)audio[2].play();
 			color = 0xFFFF00;
+			fade.alpha = 1;
 			break;
 			case "[voice1]":
 			if (audio[3].paused)audio[3].play();
 			color = 0x0FFF00;
+			blackfade.alpha = 1.0;
 			break;
 			default:
 			break;
