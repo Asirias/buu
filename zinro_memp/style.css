@@ -1,0 +1,16 @@
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: solid 1px;
+	padding: 0.5em;
+}
+
+.name{
+	color:#FFF;
+	background-color:#222;
+}
+#playername{
+	background-color:#0FF;
+}
