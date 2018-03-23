@@ -238,7 +238,7 @@ function start() {
 				var color = '#aaa';
 				switch (ss) {
 					case '市民':
-						color = '#fff';
+						color = '#eee';
 						break;
 					case '人狼':
 						color = '#111';
