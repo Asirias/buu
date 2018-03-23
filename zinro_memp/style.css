@@ -6,11 +6,15 @@ td {
 	border: solid 1px;
 	padding: 0.5em;
 }
-
+body {
+	color:#000;
+	background-color:#FFF;
+}
 .name{
 	color:#FFF;
 	background-color:#222;
 }
 #playername{
-	background-color:#0FF;
+	background-color:#222;
+	color:#fff;
 }

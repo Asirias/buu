@@ -125,6 +125,7 @@ function tadd() {
 		for (var i = 0; i < yaku_list.length; i++) position += "<option>" + yaku_list[i] + "</option>";
 		position += "</select>";
 		var tem_confirm = "<select id=" + confirm_yakusyoku_id + ">";
+		tem_confirm += "<option>未</option>";
 		for (var i = 0; i < yaku_list.length; i++) tem_confirm += "<option>" + yaku_list[i] + "</option>";
 		tem_confirm += "</select>";
 		var state = "<select id=" + state_id + ">" + "<option>生存</option>" + "<option>吊死</option>" + "<option>志望吊死</option>" + "<option>噛死</option>" + "<option>道連れ死</option>" + "<option>謎死</option>" + "</select>";
@@ -146,7 +147,25 @@ function tadd() {
 	}
 }
 var day = 0;
-
+function invertRgb(str_old_rgb) {
+    var ary_rgb = str_old_rgb.match(/([0-9]+)/g);
+    for (var i = 0; i < ary_rgb.length; i++) {
+        ary_rgb[i] = 255 - ary_rgb[i];
+    }
+    return 'RGB(' + ary_rgb.join(',') + ')';
+}
+function changecolor()
+{
+	//文字色を反転させる。
+    var old_color = $('body').css('color');
+    var new_color = invertRgb(old_color);
+    $('body').css('color', new_color);
+ 
+    //背景色を反転させる。
+    old_color = $('body').css('background-color');
+    new_color = invertRgb(old_color);
+    $('body').css('background-color', new_color);
+}
 function dayaf() {
 	$('#content').html(++day + "日目");
 		var count = 0;
@@ -158,7 +177,6 @@ function dayaf() {
 			}
 			count++;
 		});
-	
 }
 
 function start() {
@@ -215,11 +233,13 @@ function start() {
 		$('#content').html("始まり");
 		tadd();
 		$('#table .tem_confirm').change(function() {
-			
 				var ss = $(this).find("#" + confirm_yakusyoku_id).val();
 				var vid = $(this).parent().attr('id');
-				var color = '#fff';
+				var color = '#aaa';
 				switch (ss) {
+					case '市民':
+						color = '#fff';
+						break;
 					case '人狼':
 						color = '#111';
 						break;
@@ -267,6 +287,7 @@ function start() {
 				var d =$(this).find('#'+yakusyoku_id).val();
 				var $parid = $(this).parent().find('.pos');
 				if(d == "占い師" || d == "霊能"){
+
 				var tem = day + "<select class='res'>";
 				tem += "<option></option>";
 				for (var i = 0; i < playersName.length; i++) 
@@ -277,6 +298,7 @@ function start() {
 				tem += "<option>黒</option>";
 				tem += "</select>";
 				$parid.append(tem + '<br>');
+				
 				}else $parid.empty();
 			});
 			$('#table .pos').change(function() {
