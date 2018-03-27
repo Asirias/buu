@@ -89,15 +89,16 @@ function nameadd() {
 
 	playersName.length = 0;
 	$('#name').empty();
+	var addid = 'players';
 	for (var i = 0; i < sum_pep; i++) {
-		var addid = 'player' + i;
+		
 		var men = memb_t_list[i] ? memb_t_list[i] : "";
-		$('#name').append("<input type='text' value=" + men + " id =" + addid + " ><br>");
+		$('#name').append("<input type='text' value=" + men + " class =" + addid + " ><br>");
 		if (men != "") {
 			playersName.push(men);
 			ur_res.push('');
 		}
-		$('#' + addid).focusout(function(e) {
+		$('.' + addid).focusout(function(e) {
 			$(this).css('background-color', '#fff');
 		}).focusin(function(e) {
 			$(this).css('background-color', '#ffc');
@@ -105,10 +106,9 @@ function nameadd() {
 			$('#playername').html($selec_tag.val());
 		});
 	}
-}
-
-function namechange() {
+	$('#namelist').change(function() {
 	if ($selec_tag != '') $selec_tag.val($('#namelist').val());
+	});
 }
 var yakusyoku_id = 'jgr';
 var confirm_yakusyoku_id = 'confirmjgr';
@@ -119,8 +119,10 @@ var colorid = 'getcolor';
 function tadd() {
 	for (var o = 0; o < playersName.length; o++) {
 		var tr_id = playersName[o];
+		var ls = "<input type='text' class ='nl' value="+ tr_id+">";
+
 		var list = '<tr id=' + tr_id + '>';
-		var name = tr_id;
+
 		var position = "<select id=" + yakusyoku_id + ">";
 		for (var i = 0; i < yaku_list.length; i++) position += "<option>" + yaku_list[i] + "</option>";
 		position += "</select>";
@@ -132,7 +134,7 @@ function tadd() {
 
 		var color = "<div id=" + colorid + "></div>";
 		
-		list += '<th class="name">' + name + '</th>';
+		list += '<th class="name">' + ls + '</th>';
 		list += '<th class="position">' + position + '</th>';
 		list += '<th class="pos"></th>';
 		list += '<th class="color">'+color+'</th>';
@@ -173,19 +175,52 @@ function dayaf() {
 			var hm = $(this).find('#'+colorid).html();
 			if('#' + hm != '#'){
 			ur_res[count] = hm;
-			
 			}
 			count++;
 		});
+		$("#table .pos").each(function(){
+			if($(this).html()){
+				var $resval =$(this).find('.res').val('');
+				var $colval =$(this).find('.col').val('白');
+			}
+		});
 }
-
+function Gray()	{
+	var glis = '';
+	for (var o = 0; o < playersName.length; o++) {
+		var name = playersName[o];
+		var $tr = $('#'+ name);
+		var state = $tr.find('.state #'+state_id).val();
+		var trval = $tr.find('.position #'+yakusyoku_id).val();
+		var hm = $tr.find('.color #'+colorid).html();
+		if('#' + hm != '#'){
+			var li = hm.split(':');
+			for(var c = 0;c < li.length-1; c++){
+			var re = li[c].split('&gt;');
+			if(re[1] != "白<br>")glis += "<div class='black'>"+name+':'+state+'</div>';
+			}
+		}else if(trval == '市民')($selec_tag.val() == name) 
+			? glis += "<div class = 'me'>"+name+':'+state+'</div>' : glis += "<div class = 'nomal'>"+name+':'+state+'</div>';
+	}
+	$('#gray').html(glis);
+}
 function start() {
 	if ($selec_tag == '') {
 		$('#logg').html('プレイヤー(あなた)は誰ですか?名前にフォーカスを当ててクリックで決定です。');
 		$('#logg').css('color', '#f00');
 		return;
 	}
+	var count = 0;
+	$(".players").each(function(){
+		if($selec_tag.val() == $(this).val())count++;
+	});
+	if(count != 1){
+		$('#logg').html('プレイヤー(あなた)の名前がおかしい,又複数存在');
+		$('#logg').css('color', '#f00');
+		return;
+	}
 	$('#logg').html('');
+	
 	if ($('.sten').val() == '開始') {
 		yaku_list.length = 0;
 		var citizen = parseInt($('#citizen').val(), 10);
@@ -229,25 +264,31 @@ function start() {
 			}
 			addmembid = null;
 		}
-		day = 0;
-		$('#content').html("始まり");
+		count = 0;
+		$(".players").each(function(){
+			playersName[count] = $(this).val();
+			count++;
+		});
+		$("#remem").html('残り:'+count);
+	
+		day = 1;
+		$('#content').html(day + "日目");
 		tadd();
 		$('#table .tem_confirm').change(function() {
 				var ss = $(this).find("#" + confirm_yakusyoku_id).val();
-				var vid = $(this).parent().attr('id');
 				var color = '#aaa';
 				switch (ss) {
 					case '市民':
 						color = '#eee';
 						break;
 					case '人狼':
-						color = '#111';
+						color = '#222';
 						break;
 					case '狂人':
-						color = '#333';
+						color = '#444';
 						break;
 					case '狂信者':
-						color = '#222';
+						color = '#333';
 						break;
 					case '妖狐':
 						color = '#ff0';
@@ -273,15 +314,25 @@ function start() {
 					default:
 						break;
 				}
-				$('#' + vid).css('background-color', color);
-			
+				$(this).css('background-color', color);
 		});
 			$('#table .state').change(function() {
 				var state = $(this).find('#'+state_id).val();
 				var col = '';
-				if(state != '生存')col = '#666';
-				else col = '#fff';
-				$(this).parent().find('.name').css('color', col);
+				if(state != '生存')col = '#333';
+				else col = '#FFF';
+				
+				$(this).parent().find('.name').css('background-color', col);
+				
+				if($('#' + $selec_tag.val()).find('.state #' +state_id).val() == '生存'){
+				count = 0;
+				$('#' + $selec_tag.val()).find('.name').css('background-color', '#f00');
+				
+				$("#table .state").each(function(){
+				if($(this).find('#'+state_id).val() == '生存')count++;
+				});
+				$("#remem").html('残り:'+count);
+				}
 			});
 			$('#table .position').change(function() {
 				var d =$(this).find('#'+yakusyoku_id).val();
@@ -297,7 +348,7 @@ function start() {
 				tem += "<option selected>白</option>";
 				tem += "<option>黒</option>";
 				tem += "</select>";
-				$parid.append(tem + '<br>');
+				$parid.html(tem);
 				
 				}else $parid.empty();
 			});
@@ -308,26 +359,26 @@ function start() {
 					$('#' + playersName[o] + " .color").find('#'+colorid).html(ur_res[o]);
 				}
 				$("#table .pos").each(function(){
-				
-				var $resval = "";
 				if($(this).html()){
-					
-				var $name = $(this).parent().find('.name').text();
+				var $par = $(this).parent();
+				var $name = $par.find('.name .nl').val();
 				
-				$resval =$(this).find('.res').val();
-				
+				var $st = $par.find('.state #'+state_id).val();
+				if($st == '生存'){		
+				var $resval =$(this).find('.res').val();
 				var $colval =$(this).find('.col').val();
+				res = $name+">"+$colval+"<br>:";
 				
-				res = $name+">"+$colval+"<br>";
 				
 				if('#' + $resval != '#')
 				$('#' + $resval + " .color").find('#'+colorid).append(res);
+				}
 				}
 			});
 		});
 			
 		$('.sten').val('終了');
-		$('#' + $selec_tag.val() + ' .name').css('color', '#f00');
+		$('#' + $selec_tag.val() + ' .name').css('background-color', '#f00');
 	} else {
 		$('.sten').val('開始');
 		$('#table').empty();

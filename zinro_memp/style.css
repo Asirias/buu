@@ -12,9 +12,15 @@ body {
 }
 .name{
 	color:#FFF;
-	background-color:#222;
+	background-color:#FFF;
 }
 #playername{
 	background-color:#222;
 	color:#fff;
+}
+.me{
+	color:#f00;
+}
+.black{
+	color:#ccc;
 }
