@@ -31,6 +31,7 @@ window.onload = function()
 	localStorage.clear();
 	 }
 	});*/
+	$('#logg').css('color', '#f00');
 	nameadd();
 };
 
@@ -47,13 +48,12 @@ function shuffle(array) {
 var playersName = new Array();
 var ur_res = new Array();
 
-var sum_pep = 0;
 var $selec_tag = '';
 
 function nameadd() {
 	var memb_t_list = ['アンナ', 'エマ', 'エリック', 'サンドラ', 'ショーン', 'スーザン', 'トーマス', 'ヒュー', 'フェイ', 'フランク', 'マイク', 'ミカ', 'メアリー', 'メリル', 'リリアン', 'ロディ', 'ローラ', 'ゲイル', 'ジェイ', 'ジェシカ', 'バニラ', 'ビル'];
 
-	sum_pep = 0;
+	var sum_pep = 0;
 	var citizen = parseInt($('#citizen').val(), 10);
 	if (citizen > 0) sum_pep += citizen;
 	var pwolf = parseInt($('#pwolf').val(), 10);
@@ -76,12 +76,10 @@ function nameadd() {
 	if (cat > 0) sum_pep += cat;
 	var bakery = parseInt($('#bakery').val(), 10);
 	if (bakery > 0) sum_pep += bakery;
-	var chars = new Array();
 	if (addmembid) {
 		for (var i = 0; i < addmembid.length; i++) {
 			var v = parseInt($('.' + addmembid[i]).val(), 10);
 			if (v) {
-				chars.push(v);
 				sum_pep += v;
 			}
 		}
@@ -90,6 +88,8 @@ function nameadd() {
 	playersName.length = 0;
 	$('#name').empty();
 	var addid = 'players';
+	
+	var ca = 0;
 	for (var i = 0; i < sum_pep; i++) {
 		
 		var men = memb_t_list[i] ? memb_t_list[i] : "";
@@ -98,16 +98,37 @@ function nameadd() {
 			playersName.push(men);
 			ur_res.push('');
 		}
-		$('.' + addid).focusout(function(e) {
+		var fcnum = 0;
+		$('#name .' + addid).focusout(function(e) {
 			$(this).css('background-color', '#fff');
 		}).focusin(function(e) {
 			$(this).css('background-color', '#ffc');
 			$selec_tag = $(this);
+			fcnum = $('#name .' + addid).index(this)+1;
+			if(fcnum >= sum_pep)fcnum=0;
 			$('#playername').html($selec_tag.val());
 		});
 	}
-	$('#namelist').change(function() {
-	if ($selec_tag != '') $selec_tag.val($('#namelist').val());
+	$('.blo .namelist').click(function() {
+		if($selec_tag){
+			$selec_tag.val($(this).val());
+			var $names = $('#name').find('.'+addid);
+			var t = new Array();
+			var ok = true;
+			$('#logg').html('');
+			$names.each(function(){
+			var val = $(this).val();
+			if (t.indexOf(val) < 0) {
+				t.push(val);
+			}else{
+				$('#logg').html('名前に被りが存在');
+				ok = false;
+				return;
+			}
+		});
+		t = null;
+		if(ok)$names.eq(fcnum).focus();
+		}
 	});
 }
 var yakusyoku_id = 'jgr';
@@ -207,7 +228,6 @@ function Gray()	{
 function start() {
 	if ($selec_tag == '') {
 		$('#logg').html('プレイヤー(あなた)は誰ですか?名前にフォーカスを当ててクリックで決定です。');
-		$('#logg').css('color', '#f00');
 		return;
 	}
 	var count = 0;
@@ -216,7 +236,6 @@ function start() {
 	});
 	if(count != 1){
 		$('#logg').html('プレイヤー(あなた)の名前がおかしい,又複数存在');
-		$('#logg').css('color', '#f00');
 		return;
 	}
 	$('#logg').html('');
