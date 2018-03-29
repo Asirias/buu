@@ -37,11 +37,11 @@ window.onload = function()
 	nameadd();
 };
 function zissen(){
-	window.open('zingai/index.html','subwin','width=480,height=600');
+	window.open('zingai/index.html','subwin1','width=480,height=600');
     return false;
 }
 function kotonoha(){
-	window.open('zingai/index2.html','subwin','width=480,height=600');
+	window.open('zingai/index2.html','subwin2','width=480,height=600');
     return false;
 }
 function shuffle(array) {
