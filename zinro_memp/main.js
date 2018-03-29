@@ -208,6 +208,9 @@ function Gray()	{
 	var glis = 'グレー<br>';
 	var bla = '黒<br>';
 	var whis = '白<br>';
+	var deadglis = glis;
+	var deadbla = bla;
+	var deadwhis = whis;
 	for (var o = 0; o < playersName.length; o++) {
 		var name = playersName[o];
 		var $tr = $('#'+ name);
@@ -223,14 +226,22 @@ function Gray()	{
 			if(re[1] != "白<br>")black++;
 			else white++;
 			}
-			if(white)whis+= (name+':'+trval+'->白:'+white+':'+state+'<br>');
-			if(black)bla += (name+':'+trval+'->黒:'+black+':'+state+'<br>');
+			if(state === '生存'){
+			if(white)whis+= (name+':'+trval+'->白:'+white+'<br>');
+			if(black)bla += (name+':'+trval+'->黒:'+black+'<br>');
+			}else{
+			if(white)deadwhis+= (name+':'+trval+'->白:'+white+':'+state+'<br>');
+			if(black)deadbla += (name+':'+trval+'->黒:'+black+':'+state+'<br>');
+			}
 		}else {
-			($selec_tag.val() == name) 
-			? glis += "<div class = 'me'>"+name+':'+trval+':'+state+'</div>' : glis += "<div class = 'nomal'>"+name+':'+trval+':'+state+'</div>';
+			if(state === '生存'){
+			($selec_tag.val() == name) ? glis += "<div class = 'me'>"+name+':'+trval+'</div>' : glis += "<div class = 'nomal'>"+name+':'+trval+'</div>';
+			}else{
+			($selec_tag.val() == name) ? deadglis += "<div class = 'me'>"+name+':'+trval+':'+state+'</div>' : deadglis += "<div class = 'nomal'>"+name+':'+trval+':'+state+'</div>';
+			}
 		}
 	}
-	$('#gray').html(glis+whis+bla);
+	$('#gray').html("<hr>生存<br>"+glis+whis+bla+"<hr>死<br>"+deadglis+deadwhis+deadbla);
 }
 function start() {
 	if ($selec_tag == '') {
@@ -364,7 +375,6 @@ function start() {
 				var d =$(this).find('#'+yakusyoku_id).val();
 				var $parid = $(this).parent().find('.pos');
 				if(d == "占い師" || d == "霊能"){
-
 				var tem = day + "<select class='res'>";
 				tem += "<option></option>";
 				for (var i = 0; i < playersName.length; i++) 
@@ -384,23 +394,36 @@ function start() {
 				for (var o = 0; o < playersName.length; o++) {
 					$('#' + playersName[o] + " .color").find('#'+colorid).html(ur_res[o]);
 				}
+				var d =$(this).parent().find('.position #'+yakusyoku_id).val();
+				var sd = $(this).find('.res').val();
+				
+				if('#' + sd != '#'){
+				var st = $('#'+sd).find('.state #'+state_id).val();
+				if(d == '占い師'　&& (st == '吊死' || st == '志望吊死')){
+				$('#'+ sd + " .color").find('#'+colorid).append('占いが変');
+				return;
+				}
+				else if(d == '霊能'　&& (st == '噛死' || st == '道連れ死')){
+				$('#'+ sd + " .color").find('#'+colorid).append('霊能が変');
+				return;
+				}
+			}
 				$("#table .pos").each(function(){
 				if($(this).html()){
 				var $par = $(this).parent();
 				var $name = $par.find('.name .nl').val();
 				
 				var $st = $par.find('.state #'+state_id).val();
-				if($st == '生存'){		
+				if($st == '生存'){	
 				var $resval =$(this).find('.res').val();
 				var $colval =$(this).find('.col').val();
 				res = $name+">"+$colval+"<br>:";
-				
 				
 				if('#' + $resval != '#')
 				$('#' + $resval + " .color").find('#'+colorid).append(res);
 				}
 				}
-			});
+				});
 		});
 			
 		$('.sten').val('終了');
