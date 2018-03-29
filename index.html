@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<title>人狼メモ</title>
+	<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="text/javascript" http-equiv="Content-Script-Type">
+	<script src='jquery-3.3.1.min.js'>
+	</script>
+	<script src='main.js'>
+	</script>
+	<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+var 0.0 テストデバッグ中<br>
+<input type='button' value ='実践メモ' onclick="zissen()"/>
+<input type='button' value ='言葉集' onclick="kotonoha()"/>
+<input type='button' value ='背景色反転' onclick="changecolor()"/>
+	<div id="list">
+		市民
+		<select id='citizen' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3" selected>3人</option>
+		<option value="4">4人</option>
+		<option value="5">5人</option>
+		<option value="6">6人</option>
+		</select><br>
+		人狼
+		<select id='pwolf' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2" selected>2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		狂人
+		<select id='madman' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1" selected>1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		狂信者
+		<select id='fanatic' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		妖狐
+		<select id='fox' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		占い師
+		<select id='fortune_teller' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1" selected>1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		霊能
+		<select id='spiritual_ability' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1" selected>1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		狩人
+		<select id='hunter' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1" selected>1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		共有
+		<select id='share' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		猫又
+		<select id='cat' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		パン屋
+		<select id='bakery' onChange="nameadd()">
+		<option value="0">0人</option>
+		<option value="1">1人</option>
+		<option value="2">2人</option>
+		<option value="3">3人</option>
+		<option value="4">4人</option>
+		</select><br>
+		追加する役職数を入力
+		<input type='text' id ='addc'/>
+		<div id='chars'></div>
+		<br>
+		<div class = 'blo'>
+		ア<input type='button' class='namelist' value="アンナ"/><br>
+		<input type='button' class='namelist' value="エマ"/>
+		<input type='button' class='namelist' value="エリック"/><br>
+		サ<input type='button' class='namelist' value="サンドラ"/><br>
+		<input type='button' class='namelist' value="ショーン"/><br>
+		<input type='button' class='namelist' value="スーザン"/><br>
+		タ<input type='button' class='namelist' value="トーマス"/><br>
+		ハ<input type='button' class='namelist' value="ヒュー"/><br>
+		<input type='button' class='namelist' value="フェイ"/>
+		<input type='button' class='namelist' value="フランク"/><br>
+		マ<input type='button' class='namelist' value="マイク"/><br>
+		<input type='button' class='namelist' value="ミカ"/><br>
+		<input type='button' class='namelist' value="メアリー"/>
+		<input type='button' class='namelist' value="メリル"/><br>
+		ラ<input type='button' class='namelist' value="リリアン"/><br>
+		<input type='button' class='namelist' value="ロディ"/>
+		<input type='button' class='namelist' value="ローラ"/><br>
+		ガ<input type='button' class='namelist' value="ゲイル"/><br>
+		ザ<input type='button' class='namelist' value="ジェイ"/>
+		<input type='button' class='namelist' value="ジェシカ"/><br>
+		バ<input type='button' class='namelist' value="バニラ"/><br>
+		<input type='button' class='namelist' value="ビル"/>
+	</div>
+	<div class = 'blo'>
+	ここに参加者の名前を入力
+	<div id="name"></div>
+	player<div id="playername"></div>
+</div>
+<div class = 'blo'>
+		<input type='button' class='sten' value ='開始' onclick="start()"/>
+		<div id="logg"></div>
+	</div>
+	</div>
+	<br><br>
+	始めに挨拶して落ち着いてからデータ入力してください。初日は基本グレランかグレー指定。<br>
+	<input type='button' value ='夜経過' onclick="dayaf()"/>
+	<div id = 'remem'></div>
+	<table border="1" id="table">
+		<tr>
+			<th colspan="7" id="content"></th>
+		</tr>
+		<tr>
+			<th>名前</th>
+			<th>CO役職</th>
+			<th>占い,霊媒結果</th>
+			<th>受けた判定</th>
+			<th>仮確定役職</th>
+			<th>状態</th>
+			<th>メモ</th>
+		</tr>
+	</table>
+	<input type='button' value ='更新' onclick="Gray()"/>
+	<div id = 'gray'></div>
+	<br><br>
+</body>
+</html>
