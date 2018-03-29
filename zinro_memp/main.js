@@ -40,6 +40,10 @@ function zissen(){
 	window.open('zingai/index.html','subwin','width=480,height=600');
     return false;
 }
+function kotonoha(){
+	window.open('zingai/index2.html','subwin','width=480,height=600');
+    return false;
+}
 function shuffle(array) {
 	var n = array.length,
 		t, i;
@@ -214,6 +218,7 @@ function Gray()	{
 	var deadglis = glis;
 	var deadbla = bla;
 	var deadwhis = whis;
+	var glran = 'グレー->';
 	for (var o = 0; o < playersName.length; o++) {
 		var name = playersName[o];
 		var $tr = $('#'+ name);
@@ -239,12 +244,16 @@ function Gray()	{
 		}else {
 			if(state === '生存'){
 			($selec_tag.val() == name) ? glis += "<div class = 'me'>"+name+':'+trval+'</div>' : glis += "<div class = 'nomal'>"+name+':'+trval+'</div>';
+			
+			if(trval == '市民')
+			($selec_tag.val() == name) ? glran += '私 ' : glran += name+' ';
+			
 			}else{
 			($selec_tag.val() == name) ? deadglis += "<div class = 'me'>"+name+':'+trval+':'+state+'</div>' : deadglis += "<div class = 'nomal'>"+name+':'+trval+':'+state+'</div>';
 			}
 		}
 	}
-	$('#gray').html("<hr>生存<br>"+glis+whis+bla+"<hr>死<br>"+deadglis+deadwhis+deadbla);
+	$('#gray').html(glran+"<hr>生存<br>"+glis+whis+bla+"<hr>死<br>"+deadglis+deadwhis+deadbla);
 }
 function start() {
 	if ($selec_tag == '') {
