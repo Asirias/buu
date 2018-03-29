@@ -36,7 +36,10 @@ window.onload = function()
 	$('#logg').css('color', '#f00');
 	nameadd();
 };
-
+function zissen(){
+	window.open('zingai/index.html','subwin','width=480,height=600');
+    return false;
+}
 function shuffle(array) {
 	var n = array.length,
 		t, i;
