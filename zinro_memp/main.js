@@ -8,6 +8,7 @@ function chack_functions(source) {
 	console.log(propNames);
 }
 var addmembid = new Array();
+
 window.onload = function()
 {
 	$('#addc').change(function() {
@@ -21,6 +22,7 @@ window.onload = function()
 			}
 		}
 	});
+	
 	/*$(".lined").on('keydown', function(event) {
 	   const RETURN_KEY_CODE = 13;
 	   if (event.which == RETURN_KEY_CODE) {
@@ -51,8 +53,6 @@ var ur_res = new Array();
 var $selec_tag = '';
 
 function nameadd() {
-	var memb_t_list = ['アンナ', 'エマ', 'エリック', 'サンドラ', 'ショーン', 'スーザン', 'トーマス', 'ヒュー', 'フェイ', 'フランク', 'マイク', 'ミカ', 'メアリー', 'メリル', 'リリアン', 'ロディ', 'ローラ', 'ゲイル', 'ジェイ', 'ジェシカ', 'バニラ', 'ビル'];
-
 	var sum_pep = 0;
 	var citizen = parseInt($('#citizen').val(), 10);
 	if (citizen > 0) sum_pep += citizen;
@@ -92,12 +92,8 @@ function nameadd() {
 	var ca = 0;
 	for (var i = 0; i < sum_pep; i++) {
 		
-		var men = memb_t_list[i] ? memb_t_list[i] : "";
-		$('#name').append("<input type='text' value=" + men + " class =" + addid + " ><br>");
-		if (men != "") {
-			playersName.push(men);
-			ur_res.push('');
-		}
+		$('#name').append("<input type='text' value='' class =" + addid + " ><br>");
+		ur_res.push('');
 		var fcnum = 0;
 		$('#name .' + addid).focusout(function(e) {
 			$(this).css('background-color', '#fff');
@@ -118,12 +114,14 @@ function nameadd() {
 			$('#logg').html('');
 			$names.each(function(){
 			var val = $(this).val();
+			if(val != ''){
 			if (t.indexOf(val) < 0) {
 				t.push(val);
 			}else{
 				$('#logg').html('名前に被りが存在');
 				ok = false;
 				return;
+			}
 			}
 		});
 		t = null;
@@ -207,7 +205,9 @@ function dayaf() {
 		});
 }
 function Gray()	{
-	var glis = '';
+	var glis = 'グレー<br>';
+	var bla = '黒<br>';
+	var whis = '白<br>';
 	for (var o = 0; o < playersName.length; o++) {
 		var name = playersName[o];
 		var $tr = $('#'+ name);
@@ -216,14 +216,21 @@ function Gray()	{
 		var hm = $tr.find('.color #'+colorid).html();
 		if('#' + hm != '#'){
 			var li = hm.split(':');
+			var white = 0;
+			var black = 0;
 			for(var c = 0;c < li.length-1; c++){
 			var re = li[c].split('&gt;');
-			if(re[1] != "白<br>")glis += "<div class='black'>"+name+':'+state+'</div>';
+			if(re[1] != "白<br>")black++;
+			else white++;
 			}
-		}else if(trval == '市民')($selec_tag.val() == name) 
-			? glis += "<div class = 'me'>"+name+':'+state+'</div>' : glis += "<div class = 'nomal'>"+name+':'+state+'</div>';
+			if(white)whis+= (name+':'+trval+'->白:'+white+':'+state+'<br>');
+			if(black)bla += (name+':'+trval+'->黒:'+black+':'+state+'<br>');
+		}else {
+			($selec_tag.val() == name) 
+			? glis += "<div class = 'me'>"+name+':'+trval+':'+state+'</div>' : glis += "<div class = 'nomal'>"+name+':'+trval+':'+state+'</div>';
+		}
 	}
-	$('#gray').html(glis);
+	$('#gray').html(glis+whis+bla);
 }
 function start() {
 	if ($selec_tag == '') {
