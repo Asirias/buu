@@ -221,12 +221,12 @@ function Gray()	{
 		var trval = $tr.find('.position #'+yakusyoku_id).val();
 		var hm = $tr.find('.color #'+colorid).html();
 		if('#' + hm != '#'){
-			var li = hm.split(':');
+			var li = hm.split('<br>');
 			var white = 0;
 			var black = 0;
 			for(var c = 0;c < li.length-1; c++){
 			var re = li[c].split('&gt;');
-			if(re[1] != "白<br>")black++;
+			if(re[1] != "白")black++;
 			else white++;
 			}
 			if(state === '生存'){
@@ -406,7 +406,7 @@ function start() {
 				$('#'+ sd + " .color").find('#'+colorid).append('占いが変');
 				return;
 				}
-				else if(d == '霊能'　&& (st == '噛死' || st == '道連れ死')){
+				else if(d == '霊能'　&& (st == '生存' || st == '噛死' || st == '道連れ死')){
 				$('#'+ sd + " .color").find('#'+colorid).append('霊能が変');
 				return;
 				}
@@ -420,7 +420,7 @@ function start() {
 				if($st == '生存'){	
 				var $resval =$(this).find('.res').val();
 				var $colval =$(this).find('.col').val();
-				res = $name+">"+$colval+"<br>:";
+				res = $name+">"+$colval+"<br>";
 				
 				if('#' + $resval != '#')
 				$('#' + $resval + " .color").find('#'+colorid).append(res);
