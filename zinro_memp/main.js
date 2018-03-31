@@ -132,8 +132,21 @@ function nameadd() {
 			}
 		});
 		t = null;
-		if(ok)$names.eq(fcnum).focus();
+		if(ok){
+			$names.eq(fcnum).focus();
+			$(this).css({'display':'none'});
 		}
+		}
+	});
+}
+function clearmes()
+{
+	$('.blo .namelist').each(function(){
+	$(this).css({'display':'inline'});
+	});
+	
+	$('#name .players').each(function(){
+	$(this).val('');
 	});
 }
 var yakusyoku_id = 'jgr';
@@ -156,7 +169,7 @@ function tadd() {
 		tem_confirm += "<option>未</option>";
 		for (var i = 0; i < yaku_list.length; i++) tem_confirm += "<option>" + yaku_list[i] + "</option>";
 		tem_confirm += "</select>";
-		var state = "<select id=" + state_id + ">" + "<option>生存</option>" + "<option>吊死</option>" + "<option>志望吊死</option>" + "<option>噛死</option>" + "<option>道連れ死</option>" + "<option>謎死</option>" + "</select>";
+		var state = "<select id=" + state_id + ">" + "<option>生存</option>" + "<option>吊死</option>" + "<option>襲撃死</option>" + "<option>道連れ死</option>" + "<option>突然死</option>" + "</select>";
 
 		var color = "<div id=" + colorid + "></div>";
 		
@@ -411,11 +424,11 @@ function start() {
 				
 				if('#' + sd != '#'){
 				var st = $('#'+sd).find('.state #'+state_id).val();
-				if(d == '占い師'　&& (st == '吊死' || st == '志望吊死')){
+				if(d == '占い師'　&& (st == '吊死' || st == '突然死')){
 				$('#'+ sd + " .color").find('#'+colorid).append('占いが変');
 				return;
 				}
-				else if(d == '霊能'　&& (st == '生存' || st == '噛死' || st == '道連れ死')){
+				else if(d == '霊能'　&& (st == '生存' || st == '襲撃死' || st == '道連れ死')){
 				$('#'+ sd + " .color").find('#'+colorid).append('霊能が変');
 				return;
 				}

@@ -16,6 +16,7 @@ var 0.0 テストデバッグ中<br>
 <input type='button' value ='実践メモ' onclick="zissen()"/>
 <input type='button' value ='言葉集' onclick="kotonoha()"/>
 <input type='button' value ='背景色反転' onclick="changecolor()"/>
+<br>1:始めに村の役職設定を入力してください
 	<div id="list">
 		市民
 		<select id='citizen' onChange="nameadd()">
@@ -111,43 +112,51 @@ var 0.0 テストデバッグ中<br>
 		<input type='text' id ='addc'/>
 		<div id='chars'></div>
 		<br>
+		<br>2:次に参加者の名前を入力。フォームをクリックすると選択。<br>
+		ボタンを押すとその名前が入力されていきます。<br>
+		最後にフォームをクリックするとプレイヤー選択します。<br>
 		<div class = 'blo'>
-		ア<input type='button' class='namelist' value="アンナ"/><br>
-		<input type='button' class='namelist' value="エマ"/>
+		男<br>
 		<input type='button' class='namelist' value="エリック"/><br>
-		サ<input type='button' class='namelist' value="サンドラ"/><br>
 		<input type='button' class='namelist' value="ショーン"/><br>
-		<input type='button' class='namelist' value="スーザン"/><br>
-		タ<input type='button' class='namelist' value="トーマス"/><br>
-		ハ<input type='button' class='namelist' value="ヒュー"/><br>
-		<input type='button' class='namelist' value="フェイ"/>
+		<input type='button' class='namelist' value="トーマス"/><br>
+		<input type='button' class='namelist' value="ヒュー"/><br>
+		<input type='button' class='namelist' value="フェイ"/><br>
 		<input type='button' class='namelist' value="フランク"/><br>
-		マ<input type='button' class='namelist' value="マイク"/><br>
-		<input type='button' class='namelist' value="ミカ"/><br>
-		<input type='button' class='namelist' value="メアリー"/>
-		<input type='button' class='namelist' value="メリル"/><br>
-		ラ<input type='button' class='namelist' value="リリアン"/><br>
-		<input type='button' class='namelist' value="ロディ"/>
-		<input type='button' class='namelist' value="ローラ"/><br>
-		ガ<input type='button' class='namelist' value="ゲイル"/><br>
-		ザ<input type='button' class='namelist' value="ジェイ"/>
-		<input type='button' class='namelist' value="ジェシカ"/><br>
-		バ<input type='button' class='namelist' value="バニラ"/><br>
+		<input type='button' class='namelist' value="マイク"/><br>
+		<input type='button' class='namelist' value="リリアン"/><br>
+		<input type='button' class='namelist' value="ロディ"/><br>
+		<input type='button' class='namelist' value="ゲイル"/><br>
+		<input type='button' class='namelist' value="ジェイ"/><br>
 		<input type='button' class='namelist' value="ビル"/>
-	</div>
+		</div>
+		<div class = 'blo'>
+		女<br>
+		<input type='button' class='namelist' value="アンナ"/><br>
+		<input type='button' class='namelist' value="エマ"/><br>
+		<input type='button' class='namelist' value="サンドラ"/><br>
+		<input type='button' class='namelist' value="スーザン"/><br>
+		<input type='button' class='namelist' value="ミカ"/><br>
+		<input type='button' class='namelist' value="メアリー"/><br>
+		<input type='button' class='namelist' value="メリル"/><br>
+		<input type='button' class='namelist' value="ローラ"/><br>
+		<input type='button' class='namelist' value="ジェシカ"/><br>
+		<input type='button' class='namelist' value="バニラ"/>
+		</div>
 	<div class = 'blo'>
-	ここに参加者の名前を入力
 	<div id="name"></div>
 	player<div id="playername"></div>
 </div>
 <div class = 'blo'>
+		<input type='button' value ='入力しなおす' onclick="clearmes()"/><br><br><br>
 		<input type='button' class='sten' value ='開始' onclick="start()"/>
 		<div id="logg"></div>
 	</div>
 	</div>
 	<br><br>
-	始めに挨拶して落ち着いてからデータ入力してください。初日は基本グレランかグレー指定。<br>
-	<input type='button' value ='夜経過' onclick="dayaf()"/>
+	3:ここに表が出ます<br>
+	始めに挨拶して落ち着いてからデータ入力してください。<br>
+	<input type='button' value ='夜経過' onclick="dayaf()"/>←は夜に絶対押してください<br>
 	<div id = 'remem'></div>
 	<table border="1" id="table">
 		<tr>
@@ -163,7 +172,7 @@ var 0.0 テストデバッグ中<br>
 			<th>メモ</th>
 		</tr>
 	</table>
-	<input type='button' value ='更新' onclick="Gray()"/>
+	<input type='button' value ='グレー更新' onclick="Gray()"/>
 	<div id = 'gray'></div>
 	<br><br>
 </body>
